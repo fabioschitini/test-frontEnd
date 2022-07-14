@@ -1,11 +1,28 @@
 import { useState,useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
-
+const instance = Axios.create({
+  withCredentials: true,
+  baseURL: "http://localhost:3001",
+  
+})
 
 
 const Pedido = (props) => {
  
+const [vendaData,setVendaData]=useState()
+
+  useEffect(()=>{
+    instance.get("/venda").then((response)=>{
+     if(!response){
+      setVendaData(undefined)
+     }
+     else{ console.log('response',response.data)
+     setVendaData(response.data)
+  }
+})
+  },[])
+
 
     return (
         <div>

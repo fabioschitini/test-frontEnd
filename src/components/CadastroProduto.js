@@ -7,9 +7,9 @@ import * as yup from 'yup';
 
 
 const instance = Axios.create({
-    baseURL: 'https://blooming-peak-71078.herokuapp.com',
-    withCredentials:true
-  });
+  baseURL: 'http://localhost:3001',
+  withCredentials:true
+});
 
 const Produto = (props) => {
     const navigate = useNavigate();
@@ -30,12 +30,15 @@ const Produto = (props) => {
 
     return (
         <div>
-<Container>
+          {props.user?
+          
+          <Container>
 <Formik
       validationSchema={schema}
       onSubmit={values=>{
-        console.log("Submiting")
-        console.log('valueeeeeeeeeeeeeeeees',values)
+        console.log("submiting")
+        instance.post(`/produto`,{codigo:values.codigo,descricao:values.descricao,medida:values.medida,compra:values.compra,venda:values.venda}).then(result=>{console.log(result)})
+        console.log("Submited succefully")
       }}
       initialValues={{
         codigo: '',
@@ -107,7 +110,7 @@ const Produto = (props) => {
       </Form.Group>
 
                  <Form.Group as={Col} md="10" controlId="validationFormik01">
-              <Form.Label>Preco da venda</Form.Label>
+              <Form.Label>Preco de compra</Form.Label>
               <Form.Control
                 type="text"
                 name="compra"
@@ -143,6 +146,18 @@ const Produto = (props) => {
       )}
     </Formik>
 </Container>
+              
+          :
+          <div class="container col-xl-10 col-xxl-8 px-4 py-5"> 
+          <div class="row align-items-center g-lg-5 py-5">
+          <div class="col-lg-7 text-center text-lg-start">
+          <h1 class="display-4 fw-bold lh-1 mb-3">Permissao Negada </h1>
+          <p class="col-lg-10 fs-4">Somente pessoas logadas podem accesar essa pagina</p>
+        </div>
+        </div>
+        </div>
+          }
+
 </div>
     )
 }

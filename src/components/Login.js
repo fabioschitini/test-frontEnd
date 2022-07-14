@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { Button,Col,Form} from 'react-bootstrap';
 import { Formik } from 'formik';
 
-//const instance = Axios.create({
-  //  withCredentials: true,
-   // baseURL: "http://localhost:3001",
+const instance = Axios.create({
+    withCredentials: true,
+    baseURL: "http://localhost:3001",
     
-  //})
+  })
 
 
 
@@ -30,6 +30,25 @@ const Login = (props) => {
     <Formik
       onSubmit={values=>{
         console.log("Submiting")
+        instance.post("/login",{username:values.username,password:values.password}).then(result=>{
+            if(result.data.errors){
+              if(result.data.errors==="Username not found")
+                setErrorUserMessage(result.data.errors)
+                else {
+                  setErrorPasswordMessage(result.data.errors)
+                  setErrorUserMessage(false)
+                }
+            }
+
+            else {
+              console.log("login result",result)
+              setErrorUserMessage(false)
+              setErrorPasswordMessage(false)
+
+              props.setUserData(result.data.user)
+              navigate("/Blog-API")
+            }
+        })
       }}
       initialValues={{
         username: '',

@@ -7,18 +7,45 @@ import Login from './components/Login'
 import Cliente from './components/CadastroClientes'
 import Produto from './components/CadastroProduto'
 import Venda from './components/CadastroDeVenda'
-import Pedido from './components/sub-components/Pedidos'
 import Tab from './components/PedidosTab'
 
 
 
 //import PostUpdate from './components/PostUpdate'
 
+import Axios from 'axios'
+const instance = Axios.create({
+  baseURL: "http://localhost:3001",
+  withCredentials:true
+
+});
+
 
 function App() {
-  const [backendDataPost,setBackendDataPost]=useState([{}])
+  //const [backendDataPost,setBackendDataPost]=useState([{}])
   const [userData,setUserData]=useState(undefined)
 //baby do bab do birulaibe laibe'
+
+
+//baby do bab do birulaibe laibe'
+
+
+  useEffect(()=>{
+    instance.get("/login").then((response)=>{
+     console.log('responseeeeee',response)
+     if(!response){
+      setUserData(undefined)
+     
+     }
+     else{ console.log('response data userrr mate',response.data)
+      setUserData(response.data.user)
+    //setBackendDataPost(response.data.post) }
+
+  }
+    
+    
+})
+  },[])
 
 
   return (
@@ -26,16 +53,14 @@ function App() {
   
       <div className="App">
       <Router>
-      <Nav /> 
+      <Nav user={userData} setUserData={setUserData} /> 
            <Routes>
            <Route exact path='/' element={<SignIn />}/>
-           <Route exact path='/login' element={<Login />}/>
-           <Route exact path='/cliente' element={<Cliente />}/>
-           <Route exact path='/produto' element={<Produto />}/>
-           <Route exact path='/venda' element={<Venda />}/>
+           <Route exact path='/login' element={<Login  user={userData} setUserData={setUserData}/>}/>
+           <Route exact path='/cliente' element={<Cliente user={userData} />}/>
+           <Route exact path='/produto' element={<Produto user={userData} />}/>
+           <Route exact path='/venda' element={<Venda user={userData} />}/>
            <Route exact path='/pedidos' element={<Tab />}/>
-
-
            </Routes>
          </Router>
        </div>

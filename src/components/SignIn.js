@@ -29,13 +29,13 @@ const SignIn = (props) => {
 
    
     return (
-      <div class="container col-xl-10 col-xxl-8 px-4 py-5"> 
-        <div class="row align-items-center g-lg-5 py-5">
-        <div class="col-lg-7 text-center text-lg-start">
-        <h1 class="display-4 fw-bold lh-1 mb-3">Admin log in </h1>
-        <p class="col-lg-10 fs-4">Only the admin can accese this part of the website, where he can delete,create,publish post and comments</p>
+      <div className="container col-xl-10 col-xxl-8 px-4 py-5"> 
+        <div className="row align-items-center g-lg-5 py-5">
+        <div className="col-lg-7 text-center text-lg-start">
+        <h1 className="display-4 fw-bold lh-1 mb-3">Admin log in </h1>
+        <p className="col-lg-10 fs-4">Only the admin can accese this part of the website, where he can delete,create,publish post and comments</p>
       </div>
-      <div class="col-md-10 mx-auto col-lg-5"> 
+      <div className="col-md-10 mx-auto col-lg-5"> 
     <Formik
         validationSchema={schema}
       onSubmit={values=>{
@@ -59,7 +59,7 @@ const SignIn = (props) => {
         isValidating,
         validate,
       }) => (
-        <Form class="p-4 p-md-7 border rounded-3 bg-light" noValidate onSubmit={handleSubmit}>
+        <Form className="p-4 p-md-7 border rounded-3 bg-light" noValidate onSubmit={handleSubmit}>
      
      <Form.Group as={Col} md="10" controlId="validationFormik01">
               <Form.Label>Name</Form.Label>
@@ -113,7 +113,7 @@ const SignIn = (props) => {
          
                  </Form.Group>
             
-          <Button class="w-100 btn btn-lg btn-primary" style={{marginTop:"10vh"}} type="submit">Sign-In</Button>
+          <Button className="w-100 btn btn-lg btn-primary" style={{marginTop:"10vh"}} type="submit">Sign-In</Button>
         </Form>
       )}
     </Formik>

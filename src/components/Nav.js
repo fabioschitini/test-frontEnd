@@ -2,11 +2,27 @@ import {Link} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { Navbar,Nav,Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Axios from 'axios'
 
-    
+const instance = Axios.create({
+  withCredentials: true,
+  baseURL: "http://localhost:3001",
+  
+})
+
 
 const Navs = (props) => {
-    const navigate=useNavigate()
+   const navigate=useNavigate()
+    function logOut(){
+      console.log("yeppepee")
+      instance.get("/logout")
+      .then(function (response) {
+        console.log('response.data.userrrrrrrrrrrrrrrrrrr')
+        props.setUserData(response.data.user)
+        navigate('/')
+      })
+
+  }
 
     //console.log(props.userData)
     return (
@@ -19,12 +35,21 @@ const Navs = (props) => {
          <Navbar.Collapse id="responsive-navbar-nav">
            <Nav className="me-auto">
            <Link to="/">  <Nav.Link href="#home">Sign-in</Nav.Link></Link>   
-           <Link to="/login">  <Nav.Link  href="#home">Login</Nav.Link></Link>
-           <Link to="/cliente">  <Nav.Link  href="#home">Cliente</Nav.Link></Link>
-           <Link to="/produto">  <Nav.Link  href="#home">Produto</Nav.Link></Link>
-           <Link to="/venda">  <Nav.Link  href="#home">Venda</Nav.Link></Link>
-           <Link to="/pedidos">  <Nav.Link  href="#home">Pedidos</Nav.Link></Link>
-
+{props.user?
+<Link to="/">  <Nav.Link onClick={logOut} href="#home">Log Out</Nav.Link></Link>
+ :
+<Link to="/login">  <Nav.Link  href="#home">Login</Nav.Link></Link>
+}
+{props.user?
+<Link to="/cliente">  <Nav.Link  href="#home">Cliente</Nav.Link></Link>
+ :null}
+ {props.user?
+<Link to="/produto">  <Nav.Link  href="#home">Produto</Nav.Link></Link> 
+      :null}
+{props.user?
+<Link to="/venda">  <Nav.Link  href="#home">Venda</Nav.Link></Link>
+:null}
+<Link to="/pedidos">  <Nav.Link  href="#home">Pedidos</Nav.Link></Link>
            </Nav>
          
          </Navbar.Collapse>
