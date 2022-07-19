@@ -1,23 +1,21 @@
-import { useState } from 'react'
 import Axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { Button,Col,Form} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-//const instance = Axios.create({
-  //  withCredentials: true,
-   // baseURL: "http://localhost:3001",
+const instance = Axios.create({
+    withCredentials: true,
+    baseURL: "http://localhost:3001",
     
-  //})
+  })
 
 
 
-const SignIn = (props) => {
+const SignIn = () => {
     const navigate = useNavigate();
 
-    const [errorUserMessage,setErrorUserMessage]=useState(false)
-    const [errorPasswordMessage,setErrorPasswordMessage]=useState(false)
+
 
     
     const schema = yup.object().shape({
@@ -32,18 +30,18 @@ const SignIn = (props) => {
       <div className="container col-xl-10 col-xxl-8 px-4 py-5"> 
         <div className="row align-items-center g-lg-5 py-5">
         <div className="col-lg-7 text-center text-lg-start">
-        <h1 className="display-4 fw-bold lh-1 mb-3">Admin log in </h1>
-        <p className="col-lg-10 fs-4">Only the admin can accese this part of the website, where he can delete,create,publish post and comments</p>
+        <h1 className="display-4 fw-bold lh-1 mb-3">Cadastro de usuario</h1>
+        <p className="col-lg-10 fs-4">E aqui que voce pode fazer o cadastro do seu usuario</p>
       </div>
       <div className="col-md-10 mx-auto col-lg-5"> 
     <Formik
         validationSchema={schema}
       onSubmit={values=>{
-        console.log("Submiting")
-   
+        instance.post(`/signIn`,{name:values.name,username:values.username,password:values.password}).then(result=>{console.log(result)})
+        navigate("/login")
       }}
       initialValues={{
-        nome:'',
+        name:'',
         username: '',
         password:'',
       }}
@@ -51,13 +49,9 @@ const SignIn = (props) => {
       {({
         handleSubmit,
         handleChange,
-        handleBlur,
         values,
         touched,
-        isValid,
         errors,
-        isValidating,
-        validate,
       }) => (
         <Form className="p-4 p-md-7 border rounded-3 bg-light" noValidate onSubmit={handleSubmit}>
      
@@ -88,7 +82,6 @@ const SignIn = (props) => {
                 onChange={handleChange}
                 isValid={touched.username && !errors.username}
                 isInvalid={ !!errors.username}
-
                 placeholder="Username"
               />
   <Form.Control.Feedback >Looks okay!</Form.Control.Feedback>   
@@ -105,7 +98,6 @@ const SignIn = (props) => {
                 onChange={handleChange}
                 isValid={touched.password && !errors.password}
                 isInvalid={ !!errors.password}
-
                 placeholder="Password"
               />
   <Form.Control.Feedback >Looks okay!</Form.Control.Feedback>

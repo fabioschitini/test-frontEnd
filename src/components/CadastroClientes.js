@@ -13,14 +13,22 @@ const instance = Axios.create({
 
 const Cliente = (props) => {
     const navigate = useNavigate();
-
     const schema = yup.object().shape({
       razao: yup.string().required("Esse campo é obrigatorio"),
-      cnpj: yup.string().required("Esse campo é obrigatorio"),
+      cnpj:  yup.string().min(18,'Numero insuficiente').required("Esse campo é obrigatorio"),
       endereco: yup.string().required("Esse campo é obrigatorio"),
-    
-  
+      
     });
+
+     const cnpjMask = (value) => {
+      return value
+        .replace(/\D+/g, '') // não deixa ser digitado nenhuma letra
+        .replace(/(\d{2})(\d)/, '$1.$2') // captura 2 grupos de número o primeiro com 2 digitos e o segundo de com 3 digitos, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de número
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1/$2') // captura 2 grupos de número o primeiro e o segundo com 3 digitos, separados por /
+        .replace(/(\d{4})(\d)/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1') // captura os dois últimos 2 números, com um - antes dos dois números
+    }
 
 
     return (
@@ -32,8 +40,10 @@ const Cliente = (props) => {
               validationSchema={schema}
               onSubmit={values=>{
                 console.log("submiting")
-                instance.post(`/cliente`,{razao:values.razao,cnpj:values.cnpj,endereco:values.endereco}).then(result=>{console.log(result)})
+                instance.post(`/cliente`,{razao:values.razao,cnpj:values.cnpj,endereco:values.endereco}).then(result=>{console.log('result')})
                 console.log("Submited succefully")
+                navigate('/')  
+
               }}
               initialValues={{
                 razao: '',
@@ -74,12 +84,12 @@ const Cliente = (props) => {
                       <Form.Control
                         type="text"
                         name="cnpj"
-                        value={values.cnpj}
+                        value={ cnpjMask(values.cnpj)}
                         onChange={handleChange}
-                        isValid={touched.cnpj && !errors.cnpj}
+                        isInvalid={!!errors.cnpj}
                         rows={3}  
                       />
-          <Form.Control.Feedback>Tudo certo!</Form.Control.Feedback>            
+  <Form.Control.Feedback type="invalid">{errors.cnpj}</Form.Control.Feedback>         
               </Form.Group>
         
                          <Form.Group as={Col} md="10" controlId="validationFormik01">

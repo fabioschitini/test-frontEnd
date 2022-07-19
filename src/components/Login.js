@@ -23,8 +23,8 @@ const Login = (props) => {
       <div class="container col-xl-10 col-xxl-8 px-4 py-5"> 
         <div class="row align-items-center g-lg-5 py-5">
         <div class="col-lg-7 text-center text-lg-start">
-        <h1 class="display-4 fw-bold lh-1 mb-3">Admin log in </h1>
-        <p class="col-lg-10 fs-4">Only the admin can accese this part of the website, where he can delete,create,publish post and comments</p>
+        <h1 class="display-4 fw-bold lh-1 mb-3">Log in </h1>
+        <p class="col-lg-10 fs-4">Faca login para poder cadastrar clientes,produtos e vendas.</p>
       </div>
       <div class="col-md-10 mx-auto col-lg-5"> 
     <Formik
@@ -41,12 +41,11 @@ const Login = (props) => {
             }
 
             else {
-              console.log("login result",result)
               setErrorUserMessage(false)
               setErrorPasswordMessage(false)
 
               props.setUserData(result.data.user)
-              navigate("/Blog-API")
+              navigate("/cliente")
             }
         })
       }}

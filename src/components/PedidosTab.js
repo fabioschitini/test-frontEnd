@@ -3,7 +3,7 @@ import Tabs from 'react-bootstrap/Tabs';
 
 import Pedido from './sub-components/Pedidos'
 
-function PedidoTab() {
+function PedidoTab(props) {
   return (
     <Tabs
       defaultActiveKey="profile"
@@ -11,10 +11,10 @@ function PedidoTab() {
       className="mb-3"
     >
       <Tab eventKey="home" title="Em Processo">
-        <Pedido />
+        <Pedido user={props.user} aprovado={false} status={"PROCESSO"} />
       </Tab>
       <Tab eventKey="profile" title="Aprovado">
-        <Pedido />
+        <Pedido user={props.user} aprovado={false}  status={"APROVADO"} />
       </Tab>
     </Tabs>
   );

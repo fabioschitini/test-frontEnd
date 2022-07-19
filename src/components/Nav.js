@@ -14,10 +14,8 @@ const instance = Axios.create({
 const Navs = (props) => {
    const navigate=useNavigate()
     function logOut(){
-      console.log("yeppepee")
       instance.get("/logout")
       .then(function (response) {
-        console.log('response.data.userrrrrrrrrrrrrrrrrrr')
         props.setUserData(response.data.user)
         navigate('/')
       })

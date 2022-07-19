@@ -32,12 +32,11 @@ function App() {
 
   useEffect(()=>{
     instance.get("/login").then((response)=>{
-     console.log('responseeeeee',response)
      if(!response){
       setUserData(undefined)
      
      }
-     else{ console.log('response data userrr mate',response.data)
+     else{ 
       setUserData(response.data.user)
     //setBackendDataPost(response.data.post) }
 
@@ -60,7 +59,7 @@ function App() {
            <Route exact path='/cliente' element={<Cliente user={userData} />}/>
            <Route exact path='/produto' element={<Produto user={userData} />}/>
            <Route exact path='/venda' element={<Venda user={userData} />}/>
-           <Route exact path='/pedidos' element={<Tab />}/>
+           <Route exact path='/pedidos' element={<Tab user={userData} />}/>
            </Routes>
          </Router>
        </div>

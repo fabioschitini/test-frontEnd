@@ -37,9 +37,9 @@ const Produto = (props) => {
       validationSchema={schema}
       onSubmit={values=>{
         console.log("submiting")
-        instance.post(`/produto`,{codigo:values.codigo,descricao:values.descricao,medida:values.medida,compra:values.compra,venda:values.venda}).then(result=>{console.log(result)})
-        console.log("Submited succefully")
-      }}
+        instance.post(`/produto`,{codigo:values.codigo,descricao:values.descricao,medida:values.medida,compra:values.compra,venda:values.venda}).then(result=>{console.log('result')})
+        navigate('/')  
+          }}
       initialValues={{
         codigo: '',
         descricao: '',
@@ -85,7 +85,7 @@ const Produto = (props) => {
             <Form.Group   md="10" controlId="validationFormik01">
               <Form.Label>Codigo do Produto</Form.Label>
               <Form.Control
-                type="number"
+                type="text"
                 name="codigo"
                 value={values.codigo}
                 onChange={handleChange}
@@ -112,7 +112,7 @@ const Produto = (props) => {
                  <Form.Group as={Col} md="10" controlId="validationFormik01">
               <Form.Label>Preco de compra</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 name="compra"
                 value={values.compra}
                 onChange={handleChange}
@@ -126,7 +126,7 @@ const Produto = (props) => {
                  <Form.Group as={Col} md="10" controlId="validationFormik01">
               <Form.Label>Preço de Venda</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 name="venda"
                 value={values.venda}
                 onChange={handleChange}
