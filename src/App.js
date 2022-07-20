@@ -15,7 +15,7 @@ import Tab from './components/PedidosTab'
 
 import Axios from 'axios'
 const instance = Axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://test-sorocaba.herokuapp.com/",
   withCredentials:true
 
 });

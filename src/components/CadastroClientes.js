@@ -7,8 +7,8 @@ import * as yup from 'yup';
 
 
 const instance = Axios.create({
-    baseURL: 'http://localhost:3001',
-    withCredentials:true
+  baseURL: "https://test-sorocaba.herokuapp.com/",
+  withCredentials:true
   });
 
 const Cliente = (props) => {
