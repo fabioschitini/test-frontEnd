@@ -22,7 +22,6 @@ const Navs = (props) => {
 
   }
 
-    //console.log(props.userData)
     return (
        <div> 
 

@@ -22,12 +22,9 @@ const instance = Axios.create({
 
 
 function App() {
-  //const [backendDataPost,setBackendDataPost]=useState([{}])
   const [userData,setUserData]=useState(undefined)
-//baby do bab do birulaibe laibe'
 
 
-//baby do bab do birulaibe laibe'
 
 
   useEffect(()=>{
